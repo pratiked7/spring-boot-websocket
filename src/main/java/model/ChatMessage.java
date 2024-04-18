@@ -10,7 +10,7 @@ public class ChatMessage {
 
     private String content;
     private String sender;
-    private SenderStatus senderStatus;
+    private SenderStatus status;
 
 
     public enum SenderStatus{

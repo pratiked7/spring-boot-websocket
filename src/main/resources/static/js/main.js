@@ -39,7 +39,7 @@ function onConnected() {
     // Tell your username to the server
     stompClient.send("/app/chat.register",
         {},
-        JSON.stringify({sender: username, type: 'JOINED'})
+        JSON.stringify({sender: username, status: 'JOINED'})
     )
 
     connectingElement.classList.add('hidden');
@@ -60,7 +60,7 @@ function send(event) {
         const chatMessage = {
             sender: username,
             content: messageInput.value,
-            type: 'ONLINE'
+            status: 'ONLINE'
         };
 
         stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
@@ -75,10 +75,10 @@ function onMessageReceived(payload) {
 
     const messageElement = document.createElement('li');
 
-    if(message.type === 'JOINED') {
+    if(message.status === 'JOINED') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEFT') {
+    } else if (message.status === 'LEFT') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
     } else {
